@@ -3,12 +3,13 @@ package com.example.horoscopeapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class HoroscopeAdapter(private val dataSet: List<Horoscope>) :
+class HoroscopeAdapter(private val dataSet: List<Horoscope>, private val onItemClickListener: (Int) -> Unit) :
     RecyclerView.Adapter<HoroscopeViewHolder>() {
 
     // Create new views (invoked by the layout manager)
@@ -31,7 +32,9 @@ class HoroscopeAdapter(private val dataSet: List<Horoscope>) :
         val horoscope = dataSet[position]
         //holder.textView.text = horoscope.name
         holder.render(horoscope)
-
+        holder.itemView.setOnClickListener {
+            onItemClickListener(position)
+        }
     }
 
 }

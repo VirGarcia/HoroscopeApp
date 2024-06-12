@@ -1,5 +1,6 @@
 package com.example.horoscopeapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -34,9 +35,19 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
-        val adapter = HoroscopeAdapter(horoscopeList)
+        val adapter = HoroscopeAdapter(horoscopeList) { position ->
+            navigateToDetail(horoscopeList[position])
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+    }
+    fun navigateToDetail(horoscope: Horoscope) {
+        val intent: Intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("HOROSCOPE_ID", horoscope.id)
+        intent.putExtra("HOROSCOPE_NAME", horoscope.name)
+        intent.putExtra("HOROSCOPE_LOGO", horoscope.logo)
+        startActivity(intent)
 
     }
 }
