@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HoroscopoApp</string>
+
+    <string name="horoscope_name_aries">Aries</string>
+    <string name="horoscope_name_taurus">Taurus</string>
+    <string name="horoscope_name_gemini">Géminis</string>
+    <string name="horoscope_name_cancer">Cáncer</string>
+    <string name="horoscope_name_leo">Leo</string>
+    <string name="horoscope_name_virgo">Virgo</string>
+    <string name="horoscope_name_libra">Libra</string>
+    <string name="horoscope_name_scorpio">Escorpio</string>
+    <string name="horoscope_name_sagittarius">Sagitario</string>
+    <string name="horoscope_name_capricorn">Capricornio</string>
+    <string name="horoscope_name_aquarius">Aquario</string>
+    <string name="horoscope_name_pisces">Piscis</string>
+
+    <string name="horoscope_date_aries">21 de Marzo al 19 de Abril</string>
+    <string name="horoscope_date_taurus">20 de Abril al 20 de Mayo</string>
+    <string name="horoscope_date_gemini">21 de Mayo al 20 de Junio</string>
+    <string name="horoscope_date_cancer">21 de Junio al 22 de Julio</string>
+    <string name="horoscope_date_leo">23 de Julio al 22 de Agosto</string>
+    <string name="horoscope_date_virgo">23 de Agosto al 22 de Septiembre</string>
+    <string name="horoscope_date_libra">23 de Septiembre al 22 de Octubre</string>
+    <string name="horoscope_date_scorpio">23 de Octubre al 21 de Noviembre</string>
+    <string name="horoscope_date_sagittarius">22 de Noviembre al 21 de Diciembre</string>
+    <string name="horoscope_date_capricorn">22 de Diciembre al 19 de Enero</string>
+    <string name="horoscope_date_aquarius">20 de Enero al 18 de Febrero</string>
+    <string name="horoscope_date_pisces">19 de Febrero al 20 de Marzo</string>
+</resources>
