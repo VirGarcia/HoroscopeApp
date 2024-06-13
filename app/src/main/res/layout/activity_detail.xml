@@ -2,10 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailActivity"
     android:padding="8dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="150dp"
@@ -16,7 +21,55 @@
         android:layout_height="150sp"
         android:text="Horóscopo"
         android:textSize="30sp"
+        android:gravity="center" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/prediction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:gravity="center"
-        />
+        android:text="@string/prediction"/>
+    <TextView
+        android:id="@+id/today"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="fecha"/>
 
+<androidx.cardview.widget.CardView
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_weight="1"
+app:cardCornerRadius="24dp"
+app:cardElevation="4dp"
+android:layout_margin="16dp">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Predicción"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
+</androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/close_button"
+        android:layout_gravity="center"
+        />
 </LinearLayout>

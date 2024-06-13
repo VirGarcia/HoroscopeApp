@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
+
 class MainActivity : AppCompatActivity() {
+
    lateinit var horoscopeList: List<Horoscope>
-    lateinit var recyclerView: RecyclerView
+   lateinit var recyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

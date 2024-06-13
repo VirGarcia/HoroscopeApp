@@ -20,8 +20,8 @@ class HoroscopeProvider {
             return horoscopeList
         }
 
-        fun findById(id: String) : Horoscope {
-            return horoscopeList.find {it.id == id }!!
+        fun findById(id: String) : Horoscope? {
+            return horoscopeList.find {it.id == id }
         }
     }
 }
