@@ -29,4 +29,10 @@
 
     <string name="prediction">Your prediction for today:</string>
     <string name="close_button">Close</string>
+
+    <string name="menu_search">Search</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_add">Add</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="menu_share">Share</string>
 </resources>

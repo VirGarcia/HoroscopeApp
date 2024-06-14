@@ -30,4 +30,10 @@
 
     <string name="prediction">Tu predicción para hoy:</string>
     <string name="close_button">Cerrar</string>
+
+    <string name="menu_search">Buscar</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="menu_add">Añadir</string>
+    <string name="menu_favorite">Favorito</string>
+    <string name="menu_share">Compartir</string>
 </resources>

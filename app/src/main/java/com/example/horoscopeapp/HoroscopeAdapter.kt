@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class HoroscopeAdapter(private val dataSet: List<Horoscope>, private val onItemClickListener: (Int) -> Unit) :
+class HoroscopeAdapter(private var dataSet: List<Horoscope>, private val onItemClickListener: (Int) -> Unit) :
     RecyclerView.Adapter<HoroscopeViewHolder>() {
 
     // Create new views (invoked by the layout manager)
@@ -35,6 +35,11 @@ class HoroscopeAdapter(private val dataSet: List<Horoscope>, private val onItemC
         holder.itemView.setOnClickListener {
             onItemClickListener(position)
         }
+    }
+    // Este método sirve para actualizar los datos
+    fun updateData (newDataSet: List<Horoscope>) {
+        dataSet = newDataSet
+        notifyDataSetChanged()
     }
 
 }
