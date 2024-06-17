@@ -50,15 +50,20 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
 
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    horoscopeList = HoroscopeProvider.findAll().filter { getString(it.name).contains(newText, true) }
-                    adapter.updateData(horoscopeList)
+                    horoscopeList = HoroscopeProvider.findAll().filter {
+                        getString(it.name).contains(newText, true) ||
+                                getString(it.description).contains(newText, true)
+                    }
+                    adapter.updateData(horoscopeList, newText)
                 }
                 return true
             }
         })
-            return true
+
+        return true
     }
 
     fun navigateToDetail(horoscope: Horoscope) {

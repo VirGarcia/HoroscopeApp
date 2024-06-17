@@ -1,5 +1,8 @@
 package com.example.horoscopeapp
 
+import android.graphics.Color
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class HoroscopeAdapter(private var dataSet: List<Horoscope>, private val onItemClickListener: (Int) -> Unit) :
     RecyclerView.Adapter<HoroscopeViewHolder>() {
+    private var highlightText: String? = null
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
@@ -30,14 +34,23 @@ class HoroscopeAdapter(private var dataSet: List<Horoscope>, private val onItemC
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: HoroscopeViewHolder, position: Int) {
         val horoscope = dataSet[position]
-        //holder.textView.text = horoscope.name
         holder.render(horoscope)
+        if (highlightText != null) {
+            holder.highlight(highlightText!!)
+        }
         holder.itemView.setOnClickListener {
             onItemClickListener(position)
         }
+
     }
     // Este método sirve para actualizar los datos
     fun updateData (newDataSet: List<Horoscope>) {
+        updateData(newDataSet, null)
+    }
+
+    // Este método sirve para actualizar los datos
+    fun updateData(newDataSet: List<Horoscope>, highlight: String?) {
+        this.highlightText = highlight
         dataSet = newDataSet
         notifyDataSetChanged()
     }
@@ -62,4 +75,20 @@ class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         descTextView.setText(horoscope.description)
         logoImageView.setImageResource(horoscope.logo)
     }
+    fun highlight(text: String) {
+        try {
+            val highlighted = nameTextView.text.toString().highlight(text)
+            nameTextView.text = highlighted
+        } catch (e: Exception) { }
+        try {
+            val highlighted = descTextView.text.toString().highlight(text)
+            descTextView.text = highlighted
+        } catch (e: Exception) { }
+    }
+}
+fun String.highlight(text: String) : SpannableString {
+    val str = SpannableString(this)
+    val startIndex = str.indexOf(text, 0, true)
+    str.setSpan(BackgroundColorSpan(Color.CYAN), startIndex, startIndex + text.length, 0)
+    return str
 }
