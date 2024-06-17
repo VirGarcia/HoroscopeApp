@@ -1,4 +1,4 @@
-package com.example.horoscopeapp
+package com.example.horoscopeapp.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +7,9 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.horoscopeapp.data.Horoscope
+import com.example.horoscopeapp.data.HoroscopeProvider
+import com.example.horoscopeapp.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale

@@ -1,9 +1,9 @@
-package com.example.horoscopeapp
+package com.example.horoscopeapp.utils
 
 import android.content.Context
 import android.content.SharedPreferences
 
-class SessionManager (context: Context){
+class SessionManager (context: Context) {
     companion object {
         const val FAVORITE_HOROSCOPE = "FAVORITE_HOROSCOPE"
     }

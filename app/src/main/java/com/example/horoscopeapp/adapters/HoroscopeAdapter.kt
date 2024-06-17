@@ -1,4 +1,4 @@
-package com.example.horoscopeapp
+package com.example.horoscopeapp.adapters
 
 import android.graphics.Color
 import android.text.SpannableString
@@ -6,10 +6,14 @@ import android.text.style.BackgroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.horoscopeapp.R
+import com.example.horoscopeapp.data.Horoscope
+import com.example.horoscopeapp.utils.highlight
+
+
 
 
 class HoroscopeAdapter(private var dataSet: List<Horoscope>, private val onItemClickListener: (Int) -> Unit) :
@@ -58,9 +62,9 @@ class HoroscopeAdapter(private var dataSet: List<Horoscope>, private val onItemC
 }
 class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    val nameTextView: TextView
-    val descTextView: TextView
-    val logoImageView: ImageView
+    private val nameTextView: TextView
+    private val descTextView: TextView
+    private val logoImageView: ImageView
 
 
     init {
@@ -85,10 +89,4 @@ class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             descTextView.text = highlighted
         } catch (e: Exception) { }
     }
-}
-fun String.highlight(text: String) : SpannableString {
-    val str = SpannableString(this)
-    val startIndex = str.indexOf(text, 0, true)
-    str.setSpan(BackgroundColorSpan(Color.CYAN), startIndex, startIndex + text.length, 0)
-    return str
 }
