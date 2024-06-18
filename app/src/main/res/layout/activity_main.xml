@@ -7,6 +7,44 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
+    <LinearLayout
+        android:id="@+id/identifierView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:text="@string/user"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
+        <EditText
+            android:id="@+id/userNameText"
+            android:layout_width="260sp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:inputType="text"
+            android:textStyle="italic"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:text="name" />
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            app:icon="@drawable/save_icon"
+            style="?attr/materialIconButtonFilledStyle"
+            />
+
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
