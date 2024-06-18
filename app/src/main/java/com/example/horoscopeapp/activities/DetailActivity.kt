@@ -37,13 +37,19 @@ class DetailActivity : AppCompatActivity() {
 
         val id: String = intent.getStringExtra("EXTRA_HOROSCOPE_ID")!!
         horoscope = HoroscopeProvider.findById(id!!)!!
-        isFavorite = session.getFavoriteHoroscope()?.equals(horoscope.id) ?: false
+        isFavorite = session.isFavorite(horoscope.id)
 
         textView = findViewById(R.id.textView)
         imageView = findViewById(R.id.imageView)
 
         textView.setText(horoscope.name)
         imageView.setImageResource(horoscope.logo)
+
+        supportActionBar?.setTitle(horoscope.name)
+        supportActionBar?.setSubtitle(horoscope.description)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        //CurrentDay Default English
         var currentDay = LocalDate.now()
         var currentDayEn= currentDay.toString()
         findViewById<TextView>(R.id.today).setText(currentDayEn)
@@ -60,7 +66,6 @@ class DetailActivity : AppCompatActivity() {
             favoriteMenuItem.setIcon(R.drawable.ic_favorite)
         }
     }
-
 
     // Esta función devuelve el código de idioma actual del dispositivo.
     fun obtenerIdiomaDispositivo(): String {
@@ -81,6 +86,10 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
             R.id.menu_favorite -> {
                 if (isFavorite) {
                     session.setFavoriteHoroscope("")

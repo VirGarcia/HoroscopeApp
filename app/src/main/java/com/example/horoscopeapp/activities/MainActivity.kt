@@ -33,7 +33,10 @@ class MainActivity : AppCompatActivity() {
         }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-
+    }
+    override fun onResume() {
+        super.onResume()
+        adapter.updateData(horoscopeList)
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_activity_main, menu)
@@ -64,7 +67,6 @@ class MainActivity : AppCompatActivity() {
     fun navigateToDetail(horoscope: Horoscope) {
         val intent: Intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("EXTRA_HOROSCOPE_ID", horoscope.id)
-
         startActivity(intent)
     }
 }
