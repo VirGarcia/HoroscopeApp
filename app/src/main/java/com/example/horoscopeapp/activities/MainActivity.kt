@@ -19,19 +19,13 @@ class MainActivity : AppCompatActivity() {
 
    lateinit var horoscopeList: List<Horoscope>
    lateinit var recyclerView: RecyclerView
-    lateinit var adapter: HoroscopeAdapter
+   lateinit var adapter: HoroscopeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         horoscopeList = HoroscopeProvider.findAll()
-
-        //Esto se hace en el log para ir probando y ver que funciona, luego ya se quita
-        /*for (horoscope in horoscopeList)
-            Log.i("HOROSCOPE", horoscope.name)
-         */
-
         recyclerView = findViewById(R.id.recyclerView)
 
         adapter = HoroscopeAdapter(horoscopeList) { position ->
@@ -51,7 +45,6 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
-
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
@@ -73,6 +66,5 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("EXTRA_HOROSCOPE_ID", horoscope.id)
 
         startActivity(intent)
-
     }
 }

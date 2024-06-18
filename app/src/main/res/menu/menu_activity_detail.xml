@@ -11,5 +11,4 @@
         android:icon="@drawable/ic_share"
         app:showAsAction="always"
         android:title="@string/menu_share" />
-
 </menu>
