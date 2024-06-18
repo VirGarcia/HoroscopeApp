@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/nameTextView"
-            android:paddingLeft="5dp"
+            android:paddingLeft="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/descTextView"
-            android:paddingLeft="5dp"
+            android:paddingLeft="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
