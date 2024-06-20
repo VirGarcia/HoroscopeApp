@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 class SessionManager (context: Context) {
     companion object {
         const val FAVORITE_HOROSCOPE = "FAVORITE_HOROSCOPE"
+        const val INFO_HOROSCOPE = "INFO_HOROSCOPE"
         const val USER_NAME = "USER_NAME"
     }
         private val sharedPref: SharedPreferences
@@ -33,5 +34,16 @@ class SessionManager (context: Context) {
 
     fun getUserName() : String? {
         return sharedPref.getString(USER_NAME, null)
+    }
+
+
+    fun setInfoHoroscope(id: String) {
+        val editor = sharedPref.edit()
+        editor.putString(INFO_HOROSCOPE, id)
+        editor.apply()
+    }
+
+    fun getInfoHoroscope() : String? {
+        return sharedPref.getString(INFO_HOROSCOPE, null)
     }
 }

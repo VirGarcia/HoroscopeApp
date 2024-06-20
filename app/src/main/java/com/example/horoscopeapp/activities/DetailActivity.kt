@@ -115,7 +115,7 @@ class DetailActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 finish()
@@ -134,7 +134,7 @@ class DetailActivity : AppCompatActivity() {
             R.id.menu_share -> {
                 val sendIntent = Intent()
                 sendIntent.setAction(Intent.ACTION_SEND)
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                sendIntent.putExtra(Intent.EXTRA_TEXT, result.toString())
                 sendIntent.setType("text/plain")
 
                 val shareIntent = Intent.createChooser(sendIntent, null)
@@ -143,7 +143,7 @@ class DetailActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
+    }*/
     fun getDailyHoroscope() {
         // Llamada en hilo secundario
         CoroutineScope(Dispatchers.IO).launch {
@@ -178,6 +178,7 @@ class DetailActivity : AppCompatActivity() {
                         dailyHoroscopeTextView = findViewById(R.id.dailyHoroscopeTextView)
                         Log.i("verH",result.toString())
                         dailyHoroscopeTextView.text = result
+                        session.setInfoHoroscope(result.toString())
                     }
 
                 } else { // Hubo un error
@@ -186,6 +187,35 @@ class DetailActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("HTTP", "Response Error :: ${e.stackTraceToString()}")
             }
+        }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            R.id.menu_favorite -> {
+                if (isFavorite) {
+                    session.setFavoriteHoroscope("")
+                } else {
+                    session.setFavoriteHoroscope(horoscope.id)
+                }
+                isFavorite = !isFavorite
+                setFavoriteIcon()
+                true
+            }
+            R.id.menu_share -> {
+                val sendIntent = Intent()
+                sendIntent.setAction(Intent.ACTION_SEND)
+                sendIntent.putExtra(Intent.EXTRA_TEXT, session.getInfoHoroscope())
+                sendIntent.setType("text/plain")
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
