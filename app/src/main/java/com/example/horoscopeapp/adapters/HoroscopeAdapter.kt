@@ -64,7 +64,7 @@ class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val descTextView: TextView
     private val logoImageView: ImageView
     private val favoriteImageView: ImageView
-    private val identifierView: TextView
+
 
 
 
@@ -75,7 +75,8 @@ class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         descTextView = view.findViewById(R.id.descTextView)
         logoImageView = view.findViewById(R.id.logoImageView)
         favoriteImageView = view.findViewById(R.id.favoriteImageView)
-        identifierView = view.findViewById(R.id.identifierView)
+
+
     }
     fun render(horoscope: Horoscope) {
         nameTextView.setText(horoscope.name)
@@ -89,9 +90,7 @@ class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         } else {
             favoriteImageView.visibility = View.GONE
         }
-        if (SessionManager(context).getUserName()!=null) {
-            identifierView.visibility = View.VISIBLE
-        }
+
 
     }
     fun highlight(text: String) {

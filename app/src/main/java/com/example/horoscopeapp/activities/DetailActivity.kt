@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,16 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
+
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
+
 class DetailActivity : AppCompatActivity() {
     companion object {
         const val  EXTRA_HOROSCOPE_ID = "HOROSCOPE_ID"
@@ -25,10 +36,14 @@ class DetailActivity : AppCompatActivity() {
 
     lateinit var imageView: ImageView
     lateinit var textView: TextView
+    lateinit var userName: TextView
 
     lateinit var favoriteMenuItem: MenuItem
 
     lateinit var session: SessionManager
+
+    lateinit var dailyHoroscopeTextView: TextView
+    lateinit var closeButton: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +57,12 @@ class DetailActivity : AppCompatActivity() {
 
         textView = findViewById(R.id.textView)
         imageView = findViewById(R.id.imageView)
+        userName = findViewById(R.id.userName)
+        closeButton = findViewById(R.id.closeButton)
+
+        userName.text = session.getUserName()
+
+        dailyHoroscopeTextView = findViewById(R.id.dailyHoroscopeTextView)
 
         textView.setText(horoscope.name)
         imageView.setImageResource(horoscope.logo)
@@ -49,6 +70,8 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setTitle(horoscope.name)
         supportActionBar?.setSubtitle(horoscope.description)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        getDailyHoroscope()
 
         //CurrentDay Default English
         var currentDay = LocalDate.now()
@@ -58,7 +81,14 @@ class DetailActivity : AppCompatActivity() {
             var currentDayStr = currentDay.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
             findViewById<TextView>(R.id.today).setText(currentDayStr.toString())
         }
+
+        //Dejo preparado un botón para cerrar, pero según los manuales de usabilidad no es recomendable ponerlo.
+        //lo dejo puesto más que nada como ejemplo.
+        closeButton.setOnClickListener {
+            finishAffinity()
+        }
     }
+
 
     fun setFavoriteIcon () {
         if (isFavorite) {
@@ -112,6 +142,50 @@ class DetailActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+    fun getDailyHoroscope() {
+        // Llamada en hilo secundario
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // Declaramos la url
+                val url = URL("https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${horoscope.id}&day=TODAY")
+                val con = url.openConnection() as HttpsURLConnection
+                con.requestMethod = "GET"
+                val responseCode = con.responseCode
+                Log.i("HTTP", "Response Code :: $responseCode")
+
+                // Preguntamos si hubo error o no
+                if (responseCode == HttpsURLConnection.HTTP_OK) { // Ha ido bien
+                    // Metemos el cuerpo de la respuesta en un BurfferedReader
+                    val bufferedReader = BufferedReader(InputStreamReader(con.inputStream))
+                    var inputLine: String?
+                    val response = StringBuffer()
+                    while (bufferedReader.readLine().also { inputLine = it } != null) {
+                        response.append(inputLine)
+                    }
+                    bufferedReader.close()
+
+                    // Parsear JSON
+                    val json = JSONObject(response.toString())
+                    val result =  json.getJSONObject("data").getString("horoscope_data")
+
+                    // Ejecutamos en el hilo principal
+                    /*CoroutineScope(Dispatchers.Main).launch {
+
+                    }*/
+                    runOnUiThread {
+                        dailyHoroscopeTextView = findViewById(R.id.dailyHoroscopeTextView)
+                        Log.i("verH",result.toString())
+                        dailyHoroscopeTextView.text = result
+                    }
+
+                } else { // Hubo un error
+                    Log.w("HTTP", "Response :: Hubo un error")
+                }
+            } catch (e: Exception) {
+                Log.e("HTTP", "Response Error :: ${e.stackTraceToString()}")
+            }
         }
     }
 }
