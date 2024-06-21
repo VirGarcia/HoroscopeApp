@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.horoscopeapp.data.Horoscope
@@ -43,6 +45,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var session: SessionManager
 
     lateinit var dailyHoroscopeTextView: TextView
+    lateinit var progressBar: ProgressBar
     lateinit var closeButton: Button
 
 
@@ -63,6 +66,7 @@ class DetailActivity : AppCompatActivity() {
         userName.text = session.getUserName()
 
         dailyHoroscopeTextView = findViewById(R.id.dailyHoroscopeTextView)
+        progressBar = findViewById(R.id.progressBar)
 
         textView.setText(horoscope.name)
         imageView.setImageResource(horoscope.logo)
@@ -115,36 +119,8 @@ class DetailActivity : AppCompatActivity() {
         return true
     }
 
-   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            R.id.menu_favorite -> {
-                if (isFavorite) {
-                    session.setFavoriteHoroscope("")
-                } else {
-                    session.setFavoriteHoroscope(horoscope.id)
-                }
-                isFavorite = !isFavorite
-                setFavoriteIcon()
-                true
-            }
-            R.id.menu_share -> {
-                val sendIntent = Intent()
-                sendIntent.setAction(Intent.ACTION_SEND)
-                sendIntent.putExtra(Intent.EXTRA_TEXT, result.toString())
-                sendIntent.setType("text/plain")
-
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                startActivity(shareIntent)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }*/
     fun getDailyHoroscope() {
+       progressBar.visibility = View.VISIBLE
         // Llamada en hilo secundario
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -175,10 +151,10 @@ class DetailActivity : AppCompatActivity() {
 
                     }*/
                     runOnUiThread {
-                        dailyHoroscopeTextView = findViewById(R.id.dailyHoroscopeTextView)
                         Log.i("verH",result.toString())
                         dailyHoroscopeTextView.text = result
                         session.setInfoHoroscope(result.toString())
+                        progressBar.visibility = View.GONE
                     }
 
                 } else { // Hubo un error
